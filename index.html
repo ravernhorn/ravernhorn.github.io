@@ -1,0 +1,63 @@
+---
+layout: default
+title: Home
+section: home
+---
+<div class="home">
+  <section class="hero">
+    <p class="hero-eyebrow">Personal site</p>
+    <h1 class="hero-title">{{ site.title }}</h1>
+    <p class="hero-description">{{ site.description }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-journal" href="{{ '/journal/' | relative_url }}">Read the journal</a>
+      <a class="btn btn-blog" href="{{ '/blog/' | relative_url }}">Browse the blog</a>
+    </div>
+  </section>
+
+  <section class="home-grid">
+    <div class="home-column home-column--blog">
+      <div class="column-header">
+        <h2>Recent posts</h2>
+        <a class="column-link" href="{{ '/blog/' | relative_url }}">View all →</a>
+      </div>
+      {% if site.posts.size > 0 %}
+      <ul class="card-list">
+        {% for post in site.posts limit:4 %}
+        <li class="card card--blog">
+          <a href="{{ post.url | relative_url }}">
+            <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt | default: post.content | strip_html | truncatewords: 24 }}</p>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty-state">No blog posts yet.</p>
+      {% endif %}
+    </div>
+
+    <div class="home-column home-column--journal">
+      <div class="column-header">
+        <h2>Recent journal</h2>
+        <a class="column-link" href="{{ '/journal/' | relative_url }}">View all →</a>
+      </div>
+      {% if site.journal.size > 0 %}
+      <ul class="card-list">
+        {% assign sorted_journal = site.journal | sort: 'date' | reverse %}
+        {% for entry in sorted_journal limit:4 %}
+        <li class="card card--journal">
+          <a href="{{ entry.url | relative_url }}">
+            <time datetime="{{ entry.date | date: '%Y-%m-%d' }}">{{ entry.date | date: "%b %-d, %Y" }}</time>
+            <h3>{{ entry.title | default: "Untitled entry" }}</h3>
+            <p>{{ entry.content | strip_html | truncatewords: 20 }}</p>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty-state">No journal entries yet.</p>
+      {% endif %}
+    </div>
+  </section>
+</div>

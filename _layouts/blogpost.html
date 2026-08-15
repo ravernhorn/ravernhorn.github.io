@@ -1,0 +1,31 @@
+---
+layout: default
+section: blog
+---
+<article class="blog-post">
+  <header class="post-header">
+    {% if page.tags.size > 0 %}
+    <ul class="post-tags" aria-label="Tags">
+      {% for tag in page.tags %}
+      <li><span class="tag">{{ tag }}</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      <span class="meta-sep" aria-hidden="true">·</span>
+      <span class="reading-time">{{ content | number_of_words | divided_by: 200 | at_least: 1 }} min read</span>
+    </div>
+  </header>
+
+  {% if page.cover_image %}
+  <figure class="post-cover">
+    <img src="{{ page.cover_image | relative_url }}" alt="">
+  </figure>
+  {% endif %}
+
+  <div class="post-body prose">
+    {{ content }}
+  </div>
+</article>

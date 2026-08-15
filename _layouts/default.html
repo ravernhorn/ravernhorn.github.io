@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  {% seo %}
+</head>
+<body class="section-{{ page.section | default: 'home' }}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="site-logo" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="{{ '/' | relative_url }}"{% if page.section == 'home' %} aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/journal/' | relative_url }}"{% if page.section == 'journal' %} aria-current="page"{% endif %}>Journal</a>
+        <a href="{{ '/blog/' | relative_url }}"{% if page.section == 'blog' %} aria-current="page"{% endif %}>Blog</a>
+        <a href="{{ '/about/' | relative_url }}"{% if page.section == 'about' %} aria-current="page"{% endif %}>About</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-name">{{ site.author.name }}</p>
+      <p class="footer-meta">Journal &amp; blog · {{ 'now' | date: "%Y" }}</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', function () {
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      document.getElementById('nav-links')?.classList.toggle('is-open');
+    });
+  </script>
+</body>
+</html>

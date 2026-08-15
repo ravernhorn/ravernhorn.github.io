@@ -1,0 +1,32 @@
+---
+layout: default
+title: Journal
+section: journal
+---
+<div class="listing listing--journal">
+  <header class="listing-header">
+    <p class="listing-eyebrow">Personal reflections</p>
+    <h1>Journal</h1>
+    <p class="listing-description">Short, frequent notes — informal, date-forward, written in the margins of everyday life.</p>
+  </header>
+
+  {% assign sorted_journal = site.journal | sort: 'date' | reverse %}
+  {% if sorted_journal.size > 0 %}
+  <ul class="entry-list">
+    {% for entry in sorted_journal %}
+    <li class="entry-item">
+      <a href="{{ entry.url | relative_url }}">
+        <div class="entry-item-meta">
+          <time datetime="{{ entry.date | date: '%Y-%m-%d' }}">{{ entry.date | date: "%b %-d, %Y" }}</time>
+          {% if entry.mood %}<span class="entry-item-mood">{{ entry.mood }}</span>{% endif %}
+        </div>
+        <h2 class="entry-item-title">{{ entry.title | default: entry.date | date: "%A, %B %-d" }}</h2>
+        <p class="entry-item-excerpt">{{ entry.content | strip_html | truncatewords: 35 }}</p>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty-state">No journal entries yet. Create a file in <code>_journal/</code> to get started.</p>
+  {% endif %}
+</div>

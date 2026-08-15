@@ -1,0 +1,43 @@
+title: Ayush Rajoria
+description: Personal journal and blog — thoughts, essays, and notes from the margins.
+author:
+  name: Ayush Rajoria
+  email: hello@example.com
+
+url: ""
+baseurl: ""
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+collections:
+  journal:
+    output: true
+    permalink: /journal/:path/
+    sort_by: date
+    sort_order: descending
+
+defaults:
+  - scope:
+      path: ""
+      type: journal
+    values:
+      layout: journal
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: blogpost
+
+permalink: /blog/:year/:month/:day/:title/
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md

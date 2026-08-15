@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<div class="page{% if page.section %} {{ page.section }}-page{% endif %}">
+  {% if page.title %}
+  <header class="page-header">
+    {% if page.eyebrow %}<p class="listing-eyebrow">{{ page.eyebrow }}</p>{% endif %}
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="listing-description">{{ page.subtitle }}</p>{% endif %}
+  </header>
+  {% endif %}
+  <div class="page-body prose">
+    {{ content }}
+  </div>
+</div>

@@ -1,0 +1,20 @@
+---
+layout: default
+section: journal
+---
+<article class="journal-entry">
+  <header class="entry-header">
+    <time class="entry-date" datetime="{{ page.date | date: '%Y-%m-%d' }}">
+      {{ page.date | date: "%B %-d, %Y" }}
+    </time>
+    {% if page.mood %}
+    <span class="entry-mood" aria-label="Mood">{{ page.mood }}</span>
+    {% endif %}
+    {% if page.title %}
+    <h1 class="entry-title">{{ page.title }}</h1>
+    {% endif %}
+  </header>
+  <div class="entry-body prose">
+    {{ content }}
+  </div>
+</article>
